@@ -56,6 +56,9 @@ public class EventEntity {
     @Column(name = "EVENT_COUNTER")
     private int counter;
 
+    private long orgid;
+
+
 
 
     /*====================RELATIONSHIP===================*/
@@ -159,5 +162,13 @@ public class EventEntity {
 
     public void setEventcomments(List<CommentEntity> eventcomments) {
         this.eventcomments = eventcomments;
+    }
+
+    public long getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(long orgid) {
+        this.orgid = orgid;
     }
 }

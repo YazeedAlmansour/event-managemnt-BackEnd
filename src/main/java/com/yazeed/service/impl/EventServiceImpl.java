@@ -53,9 +53,11 @@ public class EventServiceImpl implements EventService {
     public ResponseEntity<EventEntity> addEvent(EventDto eventDto, long orgnaizerid) {
         if (userRepository.findById(orgnaizerid).isPresent()){
             Date date = Date.valueOf(LocalDate.now().minusDays(1));
+            eventDto.setOrgid(orgnaizerid);
             EventEntity eventEntity = modelMapper.map(eventDto,EventEntity.class);
             if (eventEntity.getEventdate().after(date)){
                 eventEntity.setOrrgnaizerid(userRepository.findById(orgnaizerid).get());
+                eventEntity.setOrgid(orgnaizerid);
                 return ResponseEntity.ok(eventRepository.save(eventEntity));
             }
             return new ResponseEntity("Event date is before today's day", HttpStatus.BAD_REQUEST);

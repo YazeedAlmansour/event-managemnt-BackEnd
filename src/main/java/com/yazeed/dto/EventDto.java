@@ -45,6 +45,16 @@ public class EventDto {
 
     private UserDto orrgnaizerid;
 
+    private long orgid;
+
+    public long getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(long orgid) {
+        this.orgid = orgid;
+    }
+
     public long getEventnumber() {
         return eventnumber;
     }
