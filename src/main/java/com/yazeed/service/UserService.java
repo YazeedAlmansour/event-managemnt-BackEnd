@@ -30,5 +30,10 @@ public interface UserService {
 
     void enableUser(long userid);
 
+    boolean isUserNumberEnabled(long usernumber);
+
+    boolean isUserIdEnabled(String userid);
+
+
     UserDto findByUserid(String userid);
 }

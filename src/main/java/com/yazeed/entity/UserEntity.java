@@ -29,13 +29,13 @@ public class UserEntity {
     @Column(name="USER_FNAME")
     @NotNull(message = "First name cannot be null")
     @Size(min = 2,max = 10 ,message = "Last name must be betweem 2 to 10")
-    @Pattern(regexp = "[a-zA-Z]{2,10}", message = "Cannot have symbols or letters")
+    @Pattern(regexp = "[a-zA-Z\\s]{2,10}", message = "Cannot have symbols or letters")
     private String userfname;
 
     @Column(name="USER_LNAME")
     @NotNull(message = "Last name cannot be null")
     @Size(min = 2, max = 20,message = "Last name must be betweem 2 to 20")
-    @Pattern(regexp = "[a-zA-Z]{2,20}", message = "Cannot have symbols or letters")
+    @Pattern(regexp = "[a-zA-Z\\s]{2,20}", message = "Cannot have symbols or letters")
     private String userlname;
 
     @Column(name="USER_EMAIL",unique = true)

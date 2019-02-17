@@ -90,6 +90,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isUserNumberEnabled(long usernumber) {
+        return userRepository.existsByUsernumberAndEnabledIsTrue(usernumber);
+    }
+
+    @Override
+    public boolean isUserIdEnabled(String userid) {
+        return userRepository.existsByUseridAndAndEnabledIsTrue(userid);
+    }
+
+    @Override
     public UserDto findByUserid(String userid) {
         UserEntity userEntity = userRepository.findByUserid(userid);
         UserDto userDto = modelMapper.map(userEntity,UserDto.class);
