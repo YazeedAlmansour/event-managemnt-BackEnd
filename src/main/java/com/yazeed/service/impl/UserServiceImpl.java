@@ -1,6 +1,7 @@
 package com.yazeed.service.impl;
 
 import com.yazeed.config.ObjectMapperUtils;
+import com.yazeed.dto.UpdateUserDto;
 import com.yazeed.dto.UserDto;
 import com.yazeed.entity.UserEntity;
 import com.yazeed.repository.RoleRepository;
@@ -43,6 +44,13 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    @Override
+    public UpdateUserDto getUserUpdate(long userid) {
+        UserEntity userEntity = userRepository.findById(userid).get();
+        UpdateUserDto updateUserDto = modelMapper.map(userEntity,UpdateUserDto.class);
+        return updateUserDto;
+    }
+
 
     @Override
     public UserEntity addUser(UserDto userDto){
@@ -52,20 +60,20 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = modelMapper.map(userDto,UserEntity.class);
         String encoded=new BCryptPasswordEncoder().encode(userEntity.getPassword());
         userEntity.setPassword(encoded);
+        userEntity.setEnabled(true);
         return userRepository.save(userEntity);
             } throw new RuntimeException(userDto.getUseremial()+" already exist ");
         } throw new RuntimeException(userDto.getUserid()+" already exist ");
     }
 
     @Override
-    public void updateUser(UserDto userDto, long userid) {
+    public void updateUser(UpdateUserDto updateUserDto, long userid) {
         if (userRepository.findById(userid).isPresent()){
             UserEntity tempUserEntity= userRepository.findById(userid).get();
-            UserEntity userEntity = modelMapper.map(userDto,UserEntity.class);
+            UserEntity userEntity = modelMapper.map(updateUserDto,UserEntity.class);
             userEntity.setRolename(tempUserEntity.getRolename());
+            userEntity.setPassword(tempUserEntity.getPassword());
             userEntity.setUsernumber(userid);
-            String encoded=new BCryptPasswordEncoder().encode(userEntity.getPassword());
-            userEntity.setPassword(encoded);
             userEntity.setEnabled(true);
             userRepository.save(userEntity);
         }
@@ -102,6 +110,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findByUserid(String userid) {
         UserEntity userEntity = userRepository.findByUserid(userid);
+        UserDto userDto = modelMapper.map(userEntity,UserDto.class);
+        return userDto;
+    }
+
+    @Override
+    public UserDto findByUserNumber(long usernumber) {
+        UserEntity userEntity = userRepository.findById(usernumber).get();
         UserDto userDto = modelMapper.map(userEntity,UserDto.class);
         return userDto;
     }

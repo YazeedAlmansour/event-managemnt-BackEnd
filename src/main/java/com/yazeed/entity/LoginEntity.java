@@ -2,6 +2,7 @@ package com.yazeed.entity;
 
 public class LoginEntity {
 
+
     private String  userid;
     private String password;
 

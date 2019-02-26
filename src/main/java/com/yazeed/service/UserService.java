@@ -1,5 +1,6 @@
 package com.yazeed.service;
 
+import com.yazeed.dto.UpdateUserDto;
 import com.yazeed.dto.UserDto;
 import com.yazeed.entity.UserEntity;
 import com.yazeed.repository.UserRepository;
@@ -20,10 +21,13 @@ public interface UserService {
     UserDto getUser(long userid);
 
 
+    UpdateUserDto getUserUpdate(long userid);
+
+
     UserEntity addUser(UserDto userDto);
 
 
-    void updateUser(UserDto userDto, long userid);
+    void updateUser(UpdateUserDto updateUserDto, long userid);
 
 
     void deleteUser(long userid);
@@ -36,4 +40,6 @@ public interface UserService {
 
 
     UserDto findByUserid(String userid);
+
+    UserDto findByUserNumber(long usernumber);
 }

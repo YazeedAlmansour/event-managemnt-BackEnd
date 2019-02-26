@@ -1,5 +1,6 @@
 package com.yazeed.controller;
 
+import com.yazeed.dto.UpdateUserDto;
 import com.yazeed.dto.UserDto;
 import com.yazeed.entity.RoleEntity;
 import com.yazeed.entity.UserEntity;
@@ -43,6 +44,11 @@ public class UserController {
     }
 
 
+    @RequestMapping("/updateUser/{userid}")
+    public UpdateUserDto getUserUpdate(@PathVariable long userid){
+        return userService.getUserUpdate(userid);
+    }
+
 
 
     @RequestMapping(method = RequestMethod.POST,value = "/admin/add")
@@ -82,11 +88,11 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.PUT, value = "/user/update/{userid}")
-    public ResponseEntity updateUser(@Valid @RequestBody UserDto userDto,@Valid @PathVariable long userid,BindingResult result){
+    public ResponseEntity updateUser(@Valid @RequestBody UpdateUserDto updateUserDto,@Valid @PathVariable long userid,BindingResult result){
         if (result.hasErrors()){
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
-        userService.updateUser(userDto,userid);
+        userService.updateUser(updateUserDto,userid);
         return ResponseEntity.ok().build();
     }
 
